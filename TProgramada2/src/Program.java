@@ -97,11 +97,6 @@ public class Program extends javax.swing.JFrame {
         CNombre.setFont(new java.awt.Font("Liberation Serif", 0, 17)); // NOI18N
 
         CCorreo.setFont(new java.awt.Font("Liberation Serif", 0, 17)); // NOI18N
-        CCorreo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CCorreoActionPerformed(evt);
-            }
-        });
 
         TCliente.setFont(new java.awt.Font("Liberation Serif", 0, 17)); // NOI18N
         TCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cliente Especial", "Adulto Mayor", "Mujer Embarazada", "Cliente Corporotivo", "Cliente Regular" }));
@@ -224,10 +219,6 @@ public class Program extends javax.swing.JFrame {
         this.checkear();
         LCajeros.setListData(this.Bank.getNombres());
     }//GEN-LAST:event_AñadirActionPerformed
-
-    private void CCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CCorreoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CCorreoActionPerformed
 
     /**
      * @param args the command line arguments
