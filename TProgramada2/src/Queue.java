@@ -22,7 +22,7 @@ public class Queue {
     }
     
     public void queue(Cliente c){
-        if(c.getPrioridad()==5){
+        if(c.getPrioridad()==4){
             list.add(c);  }
         else{list.add(c);list.bubbleSort();System.out.println("ordena");}
         this.front=list.getFirst();this.rear=list.getLast();
