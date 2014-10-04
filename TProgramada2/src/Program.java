@@ -44,7 +44,9 @@ public class Program extends javax.swing.JFrame {
         for(int i=0;this.Bank.Cajeros.length!=i&&this.clientes.lenght()!=0;i++){
             if (this.Bank.getCajeros()[i].getStatus()==true){
                 System.out.println("SE INFORMO QUE HAY DESOCUPADO TAMBN");
-                this.clientes.getFront().informarCliente(true,this.Bank.getImage());
+                //pba this.clientes.getFront().informarCliente(true,this.Bank.getImage());
+                this.dia.atendido(this.clientes.getFront());
+               
                 this.clientes.dequeue();
                 this.Bank.getCajeros()[i].setStatus(false);
             }
@@ -227,8 +229,9 @@ public class Program extends javax.swing.JFrame {
         }
         if (this.clientes.lenght()!=0){
             System.out.println("informará:  "+this.clientes.getFront().getNombre()+this.clientes.getFront().getCorreo());
-            this.clientes.getFront().informarCliente(true,this.Bank.getImage());
-            this.Bank.getCactual().setStatus(false);JOptionPane.showMessageDialog(rootPane,"Se le asigno un nuevo cliente al cajero liberado \n Nombre de cliente: "+this.clientes.getFront().getNombre());this.clientes.dequeue();return;
+            //pbathis.clientes.getFront().informarCliente(true,this.Bank.getImage());
+            this.Bank.getCactual().setStatus(false);JOptionPane.showMessageDialog(rootPane,"Se le asigno un nuevo cliente al cajero liberado \n Nombre de cliente: "+this.clientes.getFront().getNombre());
+            this.clientes.dequeue();return;
         }
         this.Bank.getCactual().setStatus(true); LCajeros.setListData(this.Bank.getNombres());
     }//GEN-LAST:event_LiberarActionPerformed
@@ -236,7 +239,7 @@ public class Program extends javax.swing.JFrame {
     private void AñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirActionPerformed
         if (this.CNombre.getText()==""||this.CCorreo.getText()==""){JOptionPane.showMessageDialog(rootPane,"Información de cliente incompleta");return;}
         System.out.println(new Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()).getNombre());
-        new Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()).informarCliente(false, Bank.getImage());
+        //pbanew Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()).informarCliente(false, Bank.getImage());
         this.clientes.queue(new Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()));
         this.checkear();
         LCajeros.setListData(this.Bank.getNombres());
@@ -245,11 +248,10 @@ public class Program extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        this.Bank.setCactual((Banco.Cajero)Lcajeros.get(LCajeros.getSelectedIndex()));
        this.Bank.getCactual().setStatus(false); LCajeros.setListData(this.Bank.getNombres());
+       System.out.println(this.dia.horavshora(0,7));
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    Dia dia=new Dia();
     DefaultListModel Lcajeros;
     private Banco Bank;
     Queue clientes=new Queue();
