@@ -1,5 +1,11 @@
 
 import java.awt.Image;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -149,9 +155,12 @@ public class FBanco extends javax.swing.JFrame {
             this.Bank.setNombre(NBanco.getText());
        }catch(Exception e){JOptionPane.showMessageDialog(rootPane, "Digite el numero de cajeros");return;}
             this.setVisible(false);
+            try{
+            this.Bank.selfsave();
+            this.Bank.selfCargar();}catch(Exception e){}
             java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Program(Bank).setVisible(true);    
+                new Program(Bank).setVisible(true);
             }
         });
         }
@@ -161,21 +170,26 @@ public class FBanco extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        eMail ev=new eMail("mmmm", 6,"mar09f@gmail.com");
-        //ev.send(false);
+        File existe=new File("Banco.obj");
+        if(!existe.exists()){
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FBanco().setVisible(true);
-                
-                
+                new FBanco().setVisible(true);  
             }
-        });
+        });}else{java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                Bank=Bank.selfCargar();
+                new Program(Bank).setVisible(true);
+            }
+        });}
        
        
     }
     
-    private Banco Bank=new Banco();
+    static private Banco Bank=new Banco();
     private String Logo;
+    ObjectOutputStream oos;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BAceptar;
     private javax.swing.JLabel BLogo;
