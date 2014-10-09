@@ -20,7 +20,7 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class Graficas extends javax.swing.JFrame {
     Dia actual;
-    int especial,mayor,embarazada,regular,corporativo;
+    
     /**
      * Creates new form Graficas
      * @param graficar
@@ -328,10 +328,12 @@ public class Graficas extends javax.swing.JFrame {
         Barras.setVisible(true);
         CAPAS.setLayer(Barras,0,0);
         p.setSelected(false);
+        //Barras.repaint();
     }//GEN-LAST:event_bActionPerformed
 
     private void pActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pActionPerformed
         Pastel.setVisible(true);
+        Barras.setVisible(false);
         CAPAS.setLayer(Pastel,0,0);
         b.setSelected(false);
         
@@ -340,6 +342,7 @@ public class Graficas extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ChartPanel panel;
         JFreeChart chart=null;
+        int especial,mayor,embarazada,regular,corporativo;
         //especial,mayor,embarazada,regular,corporativo
        // ComboDia.getSelectedItem()
         if(ComboDia.getSelectedIndex()==0){
@@ -350,13 +353,14 @@ public class Graficas extends javax.swing.JFrame {
         corporativo=this.actual.getCorporativos();
         regular=this.actual.getRegulares();
         }else{
+            System.out.println((int)this.horaFin.getValue());
         especial=this.actual.horavshoraES((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
         mayor=this.actual.horavshoraAM((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
         embarazada=this.actual.horavshoraEM((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
         corporativo=this.actual.horavshoraCO((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
         regular=this.actual.horavshoraRE((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
         }
-        {
+        
         
            if(b.isSelected()){
                //Grafico de Barras
@@ -371,8 +375,8 @@ public class Graficas extends javax.swing.JFrame {
                data.addValue(especial,categoria1,categoria1);
                data.addValue(mayor,categoria2,categoria2);
                data.addValue(embarazada,categoria3,categoria3);
-               data.addValue(this.corporativo,categoria4,categoria4);
-               data.addValue(this.regular,categoria5,categoria5);
+               data.addValue(corporativo,categoria4,categoria4);
+               data.addValue(regular,categoria5,categoria5);
                
                
                chart = ChartFactory.createBarChart("Grafico de Barras","Tipo de Cliente","Cantidad",
@@ -387,28 +391,33 @@ public class Graficas extends javax.swing.JFrame {
            }else{
                //grafico de Pastel
                DefaultPieDataset data = new DefaultPieDataset();
-               data.setValue("Especial",this.especial);
-               data.setValue("A.Mayor",this.mayor);
-               data.setValue("Embarazadas",this.embarazada);
-               data.setValue("Corporativas",this.corporativo);
-               data.setValue("Regulares",this.regular);
+               data.setValue("Especial",especial);
+               data.setValue("A.Mayor",mayor);
+               data.setValue("Embarazadas",embarazada);
+               data.setValue("Corporativas",corporativo);
+               data.setValue("Regulares",regular);
                
                //chart = ChartFactory.createPieChart3D("Grafico de Pastel",data, true,true,true);
                chart = ChartFactory.createPieChart("Grafico de Pastel",data, true,true,true);
                
-           }
+           
        }
         panel= new ChartPanel(chart);
         panel.setBounds(5,10,400,350);
         
         
             if(b.isSelected()){
+                //Systessm.out.println("Entra");
+                Barras.removeAll();
                 Barras.add(panel);
                 Barras.repaint();
+                
             }else{
+                Pastel.removeAll();
                 Pastel.add(panel);
                 Pastel.repaint();
         }
+        
         //new Graficas().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
