@@ -5,6 +5,7 @@
  */
 
 
+import javax.swing.SpinnerModel;
 import org.jfree.chart.*;
 
 import org.jfree.chart.plot.CategoryPlot;
@@ -19,6 +20,7 @@ import org.jfree.data.general.DefaultPieDataset;
  */
 public class Graficas extends javax.swing.JFrame {
     Dia actual;
+    int especial,mayor,embarazada,regular,corporativo;
     /**
      * Creates new form Graficas
      * @param graficar
@@ -36,6 +38,13 @@ public class Graficas extends javax.swing.JFrame {
         this.jregular.setText(jregular.getText()+" "+Integer.toString(this.actual.getRegulares()));
         this.jespeciales.setText(jespeciales.getText()+" "+Integer.toString(this.actual.getEspecial()));
         this.Jtotal.setText(Jtotal.getText()+" "+Integer.toString(this.actual.getTotal()));
+        this.horaFin.setVisible(false);
+        this.horaIni.setVisible(false);
+        this.jFin.setVisible(false);
+        this.jIni.setVisible(false);
+        //numero = new SpinnerModel();
+                
+       // this.horaFin.setModel();
                 /*data.addValue(this.actual.getEspecial(),categoria1,categoria1);
                data.addValue(this.actual.getAmayor(),categoria2,categoria2);
                data.addValue(this.actual.getEmbrazadas(),categoria3,categoria3);
@@ -72,6 +81,10 @@ public class Graficas extends javax.swing.JFrame {
         jCorp = new javax.swing.JLabel();
         jregular = new javax.swing.JLabel();
         Jtotal = new javax.swing.JLabel();
+        horaIni = new javax.swing.JSpinner();
+        horaFin = new javax.swing.JSpinner();
+        jFin = new javax.swing.JLabel();
+        jIni = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -131,7 +144,7 @@ public class Graficas extends javax.swing.JFrame {
         );
         BarrasLayout.setVerticalGroup(
             BarrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 410, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout PastelLayout = new javax.swing.GroupLayout(Pastel);
@@ -142,7 +155,7 @@ public class Graficas extends javax.swing.JFrame {
         );
         PastelLayout.setVerticalGroup(
             PastelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 410, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout CAPASLayout = new javax.swing.GroupLayout(CAPAS);
@@ -172,12 +185,12 @@ public class Graficas extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(CAPASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(CAPASLayout.createSequentialGroup()
-                    .addGap(21, 21, 21)
+                    .addContainerGap()
                     .addComponent(Barras, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGap(1, 1, 1)))
             .addGroup(CAPASLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(CAPASLayout.createSequentialGroup()
-                    .addGap(21, 21, 21)
+                    .addContainerGap()
                     .addComponent(Pastel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGap(1, 1, 1)))
         );
@@ -186,6 +199,11 @@ public class Graficas extends javax.swing.JFrame {
         CAPAS.setLayer(Pastel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         ComboDia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dia", "Hora" }));
+        ComboDia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboDiaActionPerformed(evt);
+            }
+        });
 
         jespeciales.setText("Cliente Especiales:");
 
@@ -199,6 +217,14 @@ public class Graficas extends javax.swing.JFrame {
 
         Jtotal.setText("Total:");
 
+        horaIni.setModel(new javax.swing.SpinnerNumberModel(1, 0, 24, 1));
+
+        horaFin.setModel(new javax.swing.SpinnerNumberModel(1, 1, 24, 1));
+
+        jFin.setText("Hora de Fin");
+
+        jIni.setText("Hora de inicio");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -206,29 +232,46 @@ public class Graficas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
+                                .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(b)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGap(10, 10, 10)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jButton1)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(9, 9, 9)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jIni)
+                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(ComboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jFin))))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(69, 69, 69)
                                         .addComponent(p))
-                                    .addComponent(ComboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton1)))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(b)
+                                        .addGap(116, 116, 116))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jespeciales, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jAmayor, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jEmba, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCorp, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jregular, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Jtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(135, 135, 135)
+                                .addComponent(horaFin)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jespeciales, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jAmayor, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jEmba, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCorp, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)
-                            .addComponent(jregular, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Jtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addGap(135, 135, 135)
+                        .addComponent(horaIni)))
+                .addGap(18, 18, 18)
                 .addComponent(CAPAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61))
         );
@@ -237,13 +280,25 @@ public class Graficas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(ComboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(b)
-                    .addComponent(p))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(ComboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addComponent(jIni)
+                        .addGap(18, 18, 18)
+                        .addComponent(jFin)
+                        .addGap(2, 2, 2))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(horaIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(horaFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(p)
+                    .addComponent(b, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addGap(26, 26, 26)
                 .addComponent(jespeciales)
@@ -285,8 +340,24 @@ public class Graficas extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ChartPanel panel;
         JFreeChart chart=null;
+        //especial,mayor,embarazada,regular,corporativo
        // ComboDia.getSelectedItem()
+        if(ComboDia.getSelectedIndex()==0){
+            System.out.println("Funca");
+        especial=this.actual.getEspecial();
+        mayor=this.actual.getAmayor();
+        embarazada=this.actual.getEmbrazadas();
+        corporativo=this.actual.getCorporativos();
+        regular=this.actual.getRegulares();
+        }else{
+        especial=this.actual.horavshoraES((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
+        mayor=this.actual.horavshoraAM((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
+        embarazada=this.actual.horavshoraEM((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
+        corporativo=this.actual.horavshoraCO((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
+        regular=this.actual.horavshoraRE((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
+        }
         {
+        
            if(b.isSelected()){
                //Grafico de Barras
                DefaultCategoryDataset data = new DefaultCategoryDataset();
@@ -297,11 +368,11 @@ public class Graficas extends javax.swing.JFrame {
                String categoria4 ="Corporativo";
                String categoria5 ="Regulares";
                
-               data.addValue(this.actual.getEspecial(),categoria1,categoria1);
-               data.addValue(this.actual.getAmayor(),categoria2,categoria2);
-               data.addValue(this.actual.getEmbrazadas(),categoria3,categoria3);
-               data.addValue(this.actual.getCorporativos(),categoria4,categoria4);
-               data.addValue(this.actual.getRegulares(),categoria5,categoria5);
+               data.addValue(especial,categoria1,categoria1);
+               data.addValue(mayor,categoria2,categoria2);
+               data.addValue(embarazada,categoria3,categoria3);
+               data.addValue(this.corporativo,categoria4,categoria4);
+               data.addValue(this.regular,categoria5,categoria5);
                
                
                chart = ChartFactory.createBarChart("Grafico de Barras","Tipo de Cliente","Cantidad",
@@ -316,11 +387,11 @@ public class Graficas extends javax.swing.JFrame {
            }else{
                //grafico de Pastel
                DefaultPieDataset data = new DefaultPieDataset();
-               data.setValue("Especial",this.actual.getEspecial());
-               data.setValue("A.Mayor",this.actual.getAmayor());
-               data.setValue("Embarazadas",this.actual.getEmbrazadas());
-               data.setValue("Corporativas",this.actual.getCorporativos());
-               data.setValue("Regulares",this.actual.getRegulares());
+               data.setValue("Especial",this.especial);
+               data.setValue("A.Mayor",this.mayor);
+               data.setValue("Embarazadas",this.embarazada);
+               data.setValue("Corporativas",this.corporativo);
+               data.setValue("Regulares",this.regular);
                
                //chart = ChartFactory.createPieChart3D("Grafico de Pastel",data, true,true,true);
                chart = ChartFactory.createPieChart("Grafico de Pastel",data, true,true,true);
@@ -341,6 +412,21 @@ public class Graficas extends javax.swing.JFrame {
         //new Graficas().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void ComboDiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboDiaActionPerformed
+        if(this.ComboDia.getSelectedIndex()==1){
+        this.horaFin.setVisible(true);
+        this.horaIni.setVisible(true);
+        this.jFin.setVisible(true);
+        this.jIni.setVisible(true);
+        }
+        else{
+        this.horaFin.setVisible(false);
+        this.horaIni.setVisible(false);
+        this.jFin.setVisible(false);
+        this.jIni.setVisible(false);
+        }
+    }//GEN-LAST:event_ComboDiaActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -351,10 +437,14 @@ public class Graficas extends javax.swing.JFrame {
     private javax.swing.JPanel Lineas;
     private javax.swing.JPanel Pastel;
     private javax.swing.JRadioButton b;
+    private javax.swing.JSpinner horaFin;
+    private javax.swing.JSpinner horaIni;
     private javax.swing.JLabel jAmayor;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jCorp;
     private javax.swing.JLabel jEmba;
+    private javax.swing.JLabel jFin;
+    private javax.swing.JLabel jIni;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLayeredPane jLayeredPane1;
