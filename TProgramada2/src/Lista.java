@@ -128,7 +128,7 @@ public class Lista implements  Serializable {
         }
     }
     public void bubbleCorreo(){
-        boolean flag;yt
+        boolean flag;
         this.moveToFirst();
         for (int i=0;i!=this.size-1;i++){
             flag=true;

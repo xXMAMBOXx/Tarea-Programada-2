@@ -2,6 +2,7 @@
 import java.awt.Image;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class BReportes extends javax.swing.JFrame {
@@ -100,7 +101,7 @@ public class BReportes extends javax.swing.JFrame {
         LBanco = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        graficar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         LFechas = new javax.swing.JList();
         jLabel2 = new javax.swing.JLabel();
@@ -198,7 +199,12 @@ public class BReportes extends javax.swing.JFrame {
 
         jButton1.setText("jButton1");
 
-        jButton2.setText("jButton2");
+        graficar.setText("Graficar");
+        graficar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graficarActionPerformed(evt);
+            }
+        });
 
         LFechas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -279,7 +285,7 @@ public class BReportes extends javax.swing.JFrame {
                                                     .addComponent(LEmbarazada, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                     .addComponent(Ccorporativo, javax.swing.GroupLayout.Alignment.LEADING))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                                .addComponent(graficar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 683, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 30, Short.MAX_VALUE)))
                         .addContainerGap())
@@ -308,7 +314,7 @@ public class BReportes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -324,7 +330,7 @@ public class BReportes extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2)
+                        .addComponent(graficar)
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)
                         .addGap(14, 14, 14))))
@@ -382,6 +388,15 @@ public class BReportes extends javax.swing.JFrame {
         this.Ccorporativo.setText("C.Corporativo: "+Integer.toString(this.Ldias[this.LFechas.getSelectedIndex()].getCorporativos()));
     }//GEN-LAST:event_LFechasMouseClicked
 
+    private void graficarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficarActionPerformed
+        if(!this.LFechas.isSelectionEmpty()){
+        new Graficas(this.Ldias[this.LFechas.getSelectedIndex()]).setVisible(true);}
+        else{
+            JOptionPane.showMessageDialog(rootPane, "Por favor seleccione el dia a graficar");
+            return;
+        }
+    }//GEN-LAST:event_graficarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -407,8 +422,8 @@ public class BReportes extends javax.swing.JFrame {
     private javax.swing.JRadioButton RPriory;
     private javax.swing.JTable TablaDinamica;
     private javax.swing.ButtonGroup TipoOrdenamiento;
+    private javax.swing.JButton graficar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

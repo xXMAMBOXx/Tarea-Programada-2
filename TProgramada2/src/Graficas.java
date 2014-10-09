@@ -3,14 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package graficos;
-import java.util.Locale;
-import javax.swing.JOptionPane;
+
+
 import org.jfree.chart.*;
-import org.jfree.chart.renderer.xy.XYSplineRenderer;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.axis.*;
-import org.jfree.data.xy.*;
 
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
@@ -23,17 +18,28 @@ import org.jfree.data.general.DefaultPieDataset;
  * @author Carlos Ramirez
  */
 public class Graficas extends javax.swing.JFrame {
-
+    Dia actual;
     /**
      * Creates new form Graficas
      */
-    public Graficas() {
+    public Graficas(Dia graficar) {
+        actual=graficar;
         initComponents();
         this.setLocationRelativeTo(null);
-        this.Lineas.setVisible(false);
         this.Barras.setVisible(false);
         this.Pastel.setVisible(false);
-        
+        this.jCorp.setText(jCorp.getText()+" "+Integer.toString(this.actual.getCorporativos()));
+        this.jEmba.setText(jEmba.getText()+" "+Integer.toString(this.actual.getEmbrazadas()));
+        this.jAmayor.setText(jAmayor.getText()+" "+Integer.toString(this.actual.getAmayor()));
+        this.jregular.setText(jregular.getText()+" "+Integer.toString(this.actual.getRegulares()));
+        this.jespeciales.setText(jespeciales.getText()+" "+Integer.toString(this.actual.getEspecial()));
+        this.Jtotal.setText(Jtotal.getText()+" "+Integer.toString(this.actual.getTotal()));
+                /*data.addValue(this.actual.getEspecial(),categoria1,categoria1);
+               data.addValue(this.actual.getAmayor(),categoria2,categoria2);
+               data.addValue(this.actual.getEmbrazadas(),categoria3,categoria3);
+               data.addValue(this.actual.getCorporativos(),categoria4,categoria4);
+               data.addValue(this.actual.getRegulares(),categoria5,categoria5);*/        
+
         this.setVisible(true);
         
     }
@@ -48,9 +54,6 @@ public class Graficas extends javax.swing.JFrame {
     private void initComponents() {
 
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        datos = new javax.swing.JTable();
-        l = new javax.swing.JRadioButton();
         b = new javax.swing.JRadioButton();
         p = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
@@ -59,6 +62,14 @@ public class Graficas extends javax.swing.JFrame {
         Lineas = new javax.swing.JPanel();
         Barras = new javax.swing.JPanel();
         Pastel = new javax.swing.JPanel();
+        ComboDia = new javax.swing.JComboBox();
+        jespeciales = new javax.swing.JLabel();
+        jAmayor = new javax.swing.JLabel();
+        jEmba = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jCorp = new javax.swing.JLabel();
+        jregular = new javax.swing.JLabel();
+        Jtotal = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -71,27 +82,8 @@ public class Graficas extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        datos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "X", "Y"
-            }
-        ));
-        jScrollPane1.setViewportView(datos);
-
-        l.setText("Lineas");
-        l.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lActionPerformed(evt);
-            }
-        });
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Grafico");
 
         b.setText("Barras");
         b.addActionListener(new java.awt.event.ActionListener() {
@@ -122,33 +114,33 @@ public class Graficas extends javax.swing.JFrame {
         Lineas.setLayout(LineasLayout);
         LineasLayout.setHorizontalGroup(
             LineasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 437, Short.MAX_VALUE)
+            .addGap(0, 465, Short.MAX_VALUE)
         );
         LineasLayout.setVerticalGroup(
             LineasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 273, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout BarrasLayout = new javax.swing.GroupLayout(Barras);
         Barras.setLayout(BarrasLayout);
         BarrasLayout.setHorizontalGroup(
             BarrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 427, Short.MAX_VALUE)
+            .addGap(0, 455, Short.MAX_VALUE)
         );
         BarrasLayout.setVerticalGroup(
             BarrasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 273, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout PastelLayout = new javax.swing.GroupLayout(Pastel);
         Pastel.setLayout(PastelLayout);
         PastelLayout.setHorizontalGroup(
             PastelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 437, Short.MAX_VALUE)
+            .addGap(0, 455, Short.MAX_VALUE)
         );
         PastelLayout.setVerticalGroup(
             PastelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 273, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout CAPASLayout = new javax.swing.GroupLayout(CAPAS);
@@ -191,6 +183,20 @@ public class Graficas extends javax.swing.JFrame {
         CAPAS.setLayer(Barras, javax.swing.JLayeredPane.DEFAULT_LAYER);
         CAPAS.setLayer(Pastel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
+        ComboDia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Dia", "Hora" }));
+
+        jespeciales.setText("Cliente Especiales:");
+
+        jAmayor.setText("Adulto mayor:");
+
+        jEmba.setText("Embarazada:");
+
+        jCorp.setText("C. Corporativo:");
+
+        jregular.setText("C. Regular:");
+
+        Jtotal.setText("Total:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -199,62 +205,71 @@ public class Graficas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addComponent(jButton1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(l)
-                                .addGap(18, 18, 18)
-                                .addComponent(b)
                                 .addGap(10, 10, 10)
-                                .addComponent(p)))
-                        .addGap(18, 18, 18)
-                        .addComponent(CAPAS)))
-                .addContainerGap())
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(b)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(p))
+                                    .addComponent(ComboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton1)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jespeciales, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jAmayor, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jEmba, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCorp, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)
+                            .addComponent(jregular, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Jtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(CAPAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(l)
-                            .addComponent(b)
-                            .addComponent(p))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1)
-                        .addGap(0, 127, Short.MAX_VALUE))
-                    .addComponent(CAPAS))
+                .addGap(27, 27, 27)
+                .addComponent(ComboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(b)
+                    .addComponent(p))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(26, 26, 26)
+                .addComponent(jespeciales)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jAmayor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jEmba)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jCorp)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jregular)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Jtotal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addContainerGap(128, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(CAPAS)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lActionPerformed
-        Lineas.setVisible(true);
-        CAPAS.setLayer(Lineas,0,0);
-        b.setSelected(false);
-        p.setSelected(false);
-        
-    }//GEN-LAST:event_lActionPerformed
-
     private void bActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bActionPerformed
         Barras.setVisible(true);
         CAPAS.setLayer(Barras,0,0);
-        l.setSelected(false);
         p.setSelected(false);
     }//GEN-LAST:event_bActionPerformed
 
@@ -262,73 +277,34 @@ public class Graficas extends javax.swing.JFrame {
         Pastel.setVisible(true);
         CAPAS.setLayer(Pastel,0,0);
         b.setSelected(false);
-        l.setSelected(false);
+        
     }//GEN-LAST:event_pActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ChartPanel panel;
         JFreeChart chart=null;
-        
-        if(l.isSelected()){
-           //grafico lineas
-            int validar=1;
-            XYSplineRenderer renderer = new XYSplineRenderer();
-            XYSeriesCollection dataset = new XYSeriesCollection();
-            ValueAxis x = new NumberAxis();
-            ValueAxis y = new NumberAxis();
-            
-            XYSeries serie = new XYSeries ("Datos");
-            
-            XYPlot plot;
-            Lineas.removeAll();
-            
-            try{
-                for (int fila=0;fila<4;fila++){
-                    serie.add(Float.parseFloat(String.valueOf(datos.getValueAt(fila,0))),
-                            Float.parseFloat(String.valueOf(datos.getValueAt(fila,1))));
-                    
-                }
-        }catch(Exception ex){
-            validar=0;
-        }
-        if (validar==1){
-            dataset.addSeries(serie);
-            x.setLabel("Eje X");
-            y.setLabel("Eje Y");
-            plot = new XYPlot(dataset,x,y,renderer);
-            chart = new JFreeChart (plot);
-            chart.setTitle("Grafico de Lineas");
-           
-        }else{
-            JOptionPane.showMessageDialog(this,"Debe llenar la tabla con datos numericos");
-            
-        }
-        
-       }else{
+       // ComboDia.getSelectedItem()
+        {
            if(b.isSelected()){
                //Grafico de Barras
                DefaultCategoryDataset data = new DefaultCategoryDataset();
-               String producto1 ="Sopas";
-               String producto2 ="Soda";
                
-               String dia1 ="Dia 1";
-               String dia2 ="Dia 2";
-               String dia3 ="Dia 3";
-               String dia4 ="Dia 4";
+               String categoria1 ="Especiales";
+               String categoria2 ="A.Mayor";
+               String categoria3 ="Embarazadas";
+               String categoria4 ="Corporativo";
+               String categoria5 ="Regulares";
                
-               data.addValue(18,producto1,dia1);
-               data.addValue(15,producto1,dia2);
-               data.addValue(14,producto1,dia3);
-               data.addValue(11,producto1,dia4);
+               data.addValue(this.actual.getEspecial(),categoria1,categoria1);
+               data.addValue(this.actual.getAmayor(),categoria2,categoria2);
+               data.addValue(this.actual.getEmbrazadas(),categoria3,categoria3);
+               data.addValue(this.actual.getCorporativos(),categoria4,categoria4);
+               data.addValue(this.actual.getRegulares(),categoria5,categoria5);
                
-               data.addValue(20,producto2,dia1);
-               data.addValue(22,producto2,dia2);
-               data.addValue(10,producto2,dia3);
-               data.addValue(25,producto2,dia4);
                
-               chart = ChartFactory.createBarChart("Grafico de Barras","Dias","Cantidad",
+               chart = ChartFactory.createBarChart("Grafico de Barras","Tipo de Cliente","Cantidad",
                        data,
-                       PlotOrientation.HORIZONTAL,
+                       PlotOrientation.VERTICAL,
                        true,
                        true,
                        true);
@@ -338,9 +314,11 @@ public class Graficas extends javax.swing.JFrame {
            }else{
                //grafico de Pastel
                DefaultPieDataset data = new DefaultPieDataset();
-               data.setValue("Categoria 1",20);
-               data.setValue("Categoria 2",60);
-               data.setValue("Categoria 3",20);
+               data.setValue("Especial",this.actual.getEspecial());
+               data.setValue("A.Mayor",this.actual.getAmayor());
+               data.setValue("Embarazadas",this.actual.getEmbrazadas());
+               data.setValue("Corporativas",this.actual.getCorporativos());
+               data.setValue("Regulares",this.actual.getRegulares());
                
                //chart = ChartFactory.createPieChart3D("Grafico de Pastel",data, true,true,true);
                chart = ChartFactory.createPieChart("Grafico de Pastel",data, true,true,true);
@@ -350,10 +328,7 @@ public class Graficas extends javax.swing.JFrame {
         panel= new ChartPanel(chart);
         panel.setBounds(5,10,400,350);
         
-        if(l.isSelected()){
-            Lineas.add(panel);
-            Lineas.repaint();
-        }else{
+        
             if(b.isSelected()){
                 Barras.add(panel);
                 Barras.repaint();
@@ -361,56 +336,31 @@ public class Graficas extends javax.swing.JFrame {
                 Pastel.add(panel);
                 Pastel.repaint();
         }
-        }
+        //new Graficas().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Graficas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Graficas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Graficas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Graficas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Graficas().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Barras;
     private javax.swing.JLayeredPane CAPAS;
+    private javax.swing.JComboBox ComboDia;
+    private javax.swing.JLabel Jtotal;
     private javax.swing.JPanel Lineas;
     private javax.swing.JPanel Pastel;
     private javax.swing.JRadioButton b;
-    private javax.swing.JTable datos;
+    private javax.swing.JLabel jAmayor;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jCorp;
+    private javax.swing.JLabel jEmba;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JRadioButton l;
+    private javax.swing.JLabel jespeciales;
+    private javax.swing.JLabel jregular;
     private javax.swing.JRadioButton p;
     // End of variables declaration//GEN-END:variables
 }
