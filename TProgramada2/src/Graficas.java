@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.SpinnerModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.jfree.chart.*;
@@ -375,12 +376,15 @@ public class Graficas extends javax.swing.JFrame {
         corporativo=this.actual.getCorporativos();
         regular=this.actual.getRegulares();
         }else{
-            System.out.println((int)this.horaFin.getValue());
-        especial=this.actual.horavshoraES((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
-        mayor=this.actual.horavshoraAM((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
-        embarazada=this.actual.horavshoraEM((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
-        corporativo=this.actual.horavshoraCO((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
-        regular=this.actual.horavshoraRE((int)this.horaFin.getValue(), (int)this.horaIni.getValue());
+        if((int)this.horaIni.getValue()>=(int)this.horaFin.getValue()){
+            JOptionPane.showMessageDialog(rootPane,"Error al introducir hora de reporte inicial\n hora inicial mayor o igual a la final" );
+            return;
+        }
+        especial=this.actual.horavshoraES((int)this.horaIni.getValue(), (int)this.horaFin.getValue());
+        mayor=this.actual.horavshoraAM((int)this.horaIni.getValue(), (int)this.horaFin.getValue());
+        embarazada=this.actual.horavshoraEM((int)this.horaIni.getValue(), (int)this.horaFin.getValue());
+        corporativo=this.actual.horavshoraCO((int)this.horaIni.getValue(), (int)this.horaFin.getValue());
+        regular=this.actual.horavshoraRE((int)this.horaIni.getValue(), (int)this.horaFin.getValue());
         }
         
         

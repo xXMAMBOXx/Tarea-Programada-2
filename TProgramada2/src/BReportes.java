@@ -110,6 +110,7 @@ public class BReportes extends javax.swing.JFrame {
         Amayor = new javax.swing.JLabel();
         LEmbarazada = new javax.swing.JLabel();
         Ccorporativo = new javax.swing.JLabel();
+        Cregular = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -237,6 +238,10 @@ public class BReportes extends javax.swing.JFrame {
         Ccorporativo.setForeground(new java.awt.Color(254, 254, 254));
         Ccorporativo.setText("C.Corporativo");
 
+        Cregular.setFont(new java.awt.Font("Ubuntu", 3, 15)); // NOI18N
+        Cregular.setForeground(new java.awt.Color(255, 245, 245));
+        Cregular.setText("C.Regulares:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -273,7 +278,8 @@ public class BReportes extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(Cregular, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(CAntendidos, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -314,7 +320,7 @@ public class BReportes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -326,7 +332,9 @@ public class BReportes extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(LEmbarazada)
                                 .addGap(18, 18, 18)
-                                .addComponent(Ccorporativo))
+                                .addComponent(Ccorporativo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Cregular))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -386,6 +394,7 @@ public class BReportes extends javax.swing.JFrame {
         this.Amayor.setText("A.Mayor: "+Integer.toString(this.Ldias[this.LFechas.getSelectedIndex()].getAmayor()));
         this.LEmbarazada.setText("M.Embarazada: "+Integer.toString(this.Ldias[this.LFechas.getSelectedIndex()].getEmbrazadas()));
         this.Ccorporativo.setText("C.Corporativo: "+Integer.toString(this.Ldias[this.LFechas.getSelectedIndex()].getCorporativos()));
+        this.Cregular.setText("C.Regulares: "+Integer.toString(this.Ldias[this.LFechas.getSelectedIndex()].getRegulares()));
     }//GEN-LAST:event_LFechasMouseClicked
 
     private void graficarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graficarActionPerformed
@@ -410,6 +419,7 @@ public class BReportes extends javax.swing.JFrame {
     private javax.swing.JLabel CAntendidos;
     private javax.swing.JLabel Ccorporativo;
     private javax.swing.JLabel Cespeciales;
+    private javax.swing.JLabel Cregular;
     private javax.swing.JLabel LBanco;
     private javax.swing.JLabel LEmbarazada;
     private javax.swing.JList LFechas;

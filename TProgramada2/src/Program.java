@@ -10,17 +10,13 @@ public class Program extends javax.swing.JFrame {
     public Program(Banco x) {     
         this.Bank=x;
         initComponents();
-        System.out.println("LISTa LEYENDO");
         this.total=this.total.readList();this.total.ToString();
         InstallBanco(x);this.TCliente.setSelectedIndex(4);
         File existe=new File("Queue.obj");
-        System.out.println("queue"+existe.exists());
         if (existe.exists()){
         this.clientes=this.clientes.readQueue();
         this.clientes.deleteFile();this.clientes.lenght();
         }
-        System.out.println(this.Bank.getImage()+" "+x.getNombre());
-        
     }
     public void InstallBanco(Banco banco){
         ImageIcon logo= new ImageIcon(this.Bank.getImage());
@@ -35,15 +31,15 @@ public class Program extends javax.swing.JFrame {
         for(int i=0;i!=Bank.getNCajeros();i++){
          Lcajeros.addElement(Bank.getCajeros()[i]);}
         LCajeros.setListData(this.Bank.getNombres());}
+    
     public void checkear(){
         for(int i=0;this.Bank.Cajeros.length!=i&&this.clientes.lenght()!=0;i++){
             if (this.Bank.getCajeros()[i].getStatus()==true){
                 if(!this.dia.isToday()){this.dia.guardar();this.dia=new Dia();
                 this.dia.guardar();
-                // this.LCajeros.setListData(this.dia.listaDias());
                 }else{this.dia.guardar();}
                 System.out.println("SE INFORMO QUE HAY DESOCUPADO TAMBN");
-                //pba this.clientes.getFront().informarCliente(true,this.Bank.getImage());
+                //INFthis.clientes.getFront().informarCliente(true,this.Bank.getImage());
                 this.dia.atendido(this.clientes.getFront());
                 JOptionPane.showMessageDialog(rootPane,"Se le asigno un nuevo cliente al cajero libre \n Nombre de cliente: "+this.clientes.getFront().getNombre()+"\n Correo de cliente: "+this.clientes.getFront().getCorreo());
                 this.clientes.dequeue();
@@ -106,7 +102,7 @@ public class Program extends javax.swing.JFrame {
         CCorreo.setFont(new java.awt.Font("Liberation Serif", 0, 17)); // NOI18N
 
         TCliente.setFont(new java.awt.Font("Liberation Serif", 0, 17)); // NOI18N
-        TCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cliente Especial", "Adulto Mayor", "Mujer Embarazada", "Cliente Corporotivo", "Cliente Regular" }));
+        TCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cliente Especial", "Adulto Mayor", "Mujer Embarazada", "Cliente Corporativo", "Cliente Regular" }));
 
         Añadir.setFont(new java.awt.Font("Liberation Serif", 2, 18)); // NOI18N
         Añadir.setText("Añadir");
@@ -251,10 +247,8 @@ public class Program extends javax.swing.JFrame {
         if (this.clientes.lenght()!=0){
             if(!this.dia.isToday()){this.dia.guardar();this.dia=new Dia();
             this.dia.guardar();
-            // this.LCajeros.setListData(this.dia.listaDias());
             }else{this.dia.guardar();}
-            System.out.println("informará:  "+this.clientes.getFront().getNombre()+this.clientes.getFront().getCorreo());
-            //pbathis.clientes.getFront().informarCliente(true,this.Bank.getImage());
+            //INFthis.clientes.getFront().informarCliente(true,this.Bank.getImage());
             this.dia.atendido(this.clientes.getFront());this.clientes.saveQueue();
             this.clientes.readQueue();
             this.Bank.getCactual().setStatus(false);JOptionPane.showMessageDialog(rootPane,"Se le asigno un nuevo cliente al cajero libre \n Nombre de cliente: "+this.clientes.getFront().getNombre()+"\n Correo de cliente: "+this.clientes.getFront().getCorreo());
@@ -279,7 +273,6 @@ public class Program extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
-        
         this.dia.guardar();
         new BReportes().setVisible(true);
     }//GEN-LAST:event_ReportesActionPerformed

@@ -68,6 +68,7 @@ public class FBanco extends javax.swing.JFrame {
             }
         });
 
+        BLogo.setForeground(new java.awt.Color(232, 135, 38));
         BLogo.setText("jLabel4");
 
         javax.swing.GroupLayout PBancoLayout = new javax.swing.GroupLayout(PBanco);

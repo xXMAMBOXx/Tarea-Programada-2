@@ -241,7 +241,7 @@
                 <StringItem index="0" value="Cliente Especial"/>
                 <StringItem index="1" value="Adulto Mayor"/>
                 <StringItem index="2" value="Mujer Embarazada"/>
-                <StringItem index="3" value="Cliente Corporotivo"/>
+                <StringItem index="3" value="Cliente Corporativo"/>
                 <StringItem index="4" value="Cliente Regular"/>
               </StringArray>
             </Property>

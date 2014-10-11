@@ -7,7 +7,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 public class Dia implements  Serializable {
     private class hora implements  Serializable{
         private int atendidos=0;
@@ -17,6 +16,11 @@ public class Dia implements  Serializable {
         hora(){
         SimpleDateFormat hour = new SimpleDateFormat("HH");
         this.hora=hour.format(now);
+        this.Especial=0;
+        this.Amayor=0;
+        this.embarazada=0;
+        this.corporativo=0;
+        this.regulares=0;   
         }
         public String getHora(){
             return this.hora;
@@ -28,6 +32,12 @@ public class Dia implements  Serializable {
         }
         public void addCliente(int regulares,int corporativo,int embarazada,int Amayor,int Especial){
             this.atendidos++;
+            this.Especial+=Especial;
+            System.out.println("E"+this.Especial);
+            this.Amayor+=Amayor;System.out.println("A"+this.Amayor);
+            this.embarazada+=embarazada;System.out.println("EM"+this.embarazada);
+            this.corporativo+=corporativo;System.out.println("co"+this.corporativo);
+            this.regulares+=regulares; System.out.println("re"+this.regulares);  
         }
         public int getAtendidos(){
             return this.atendidos;
@@ -67,26 +77,27 @@ public class Dia implements  Serializable {
     
     }
     public void atendido(Cliente a){
+        int E=0, A=0,EM=0,CO=0,Re=0;
         if(a.getPrioridad()==0){
-            this.Especial++;}
+            this.Especial++;E=1;}
         if(a.getPrioridad()==1){
-            this.Amayor++;}
+            this.Amayor++;A+=1;}
         if(a.getPrioridad()==2){
-            this.embarazada++;}
+            this.embarazada++;EM=1;}
         if(a.getPrioridad()==3){
-            this.corporativo++;}
+            this.corporativo++;CO=1;}
         if(a.getPrioridad()==4){
-            this.regulares++;}
+            this.regulares++;Re=1;}
         System.out.print(!this.horaActual.getHora().equals(this.horaActual.getActual()));
         if (!this.horaActual.getHora().equals(this.horaActual.getActual())){
-            System.out.print(Integer.parseInt(this.horaActual.getHora()));
+            System.out.print("CAAAMBIO DE HORA"+Integer.parseInt(this.horaActual.getHora()));
            this.horas[Integer.parseInt(this.horaActual.getHora())]=this.horaActual;
-           System.out.print(this.horas[0]);
            this.horaActual=new hora(); 
-        }else{ this.horas[Integer.parseInt(this.horaActual.getHora())]=this.horaActual;}
-        this.horaActual.addCliente(this.regulares,this.corporativo,this.embarazada,this.Amayor,this.Especial);
+        }else{this.horas[Integer.parseInt(this.horaActual.getHora())]=this.horaActual;}
+        System.out.print("diaaaaaaaaaaaaaaay"+Re+CO+EM+A+E);
+        this.horaActual.addCliente(Re,CO,EM,A,E);
         this.Latendidos.add(a);
-        System.out.println(Latendidos.getLast().getNombre()+" atendidos "+this.horaActual.getAtendidos()+" en hora "+this.horaActual.getHora());
+        System.out.println(Latendidos.getLast().getNombre()+" atendidosE "+this.horaActual.getEspecialxHora()+" en HORAAAA "+this.horaActual.getHora());
     }
     public int getRegulares(){
         return this.regulares;}
@@ -149,65 +160,50 @@ public class Dia implements  Serializable {
     }
     public int horavshoraT(int d,int b){
         int nclientes=0;
-        for(int a=0;a!=b;a++){
-            System.out.println(this.horas[a]);
+        for(int a=d;a!=b;a++){
             if(this.horas[a]!=null){
-            System.out.println(this.horas[a].getHora());
             nclientes+=this.horas[a].getAtendidos();}
-             System.out.println(nclientes);
         }
         return nclientes;
     }
     public int horavshoraES(int d,int b){
         int especial=0;
-        for(int a=0;a!=b;a++){
-            System.out.println(this.horas[a]);
+        for(int a=d;a!=b;a++){
+            System.out.println("ITERACIONES="+a+"hasta "+b);
             if(this.horas[a]!=null){
             System.out.println(this.horas[a].getHora());
             especial+=this.horas[a].getEspecialxHora();}
-             System.out.println(especial);
-        }
+        }System.out.println("CLIENTES ESPECIALES: "+especial);
         return especial;
     }
     public int horavshoraAM(int d,int b){
         int AM=0;
-        for(int a=0;a!=b;a++){
-            System.out.println(this.horas[a]);
+        for(int a=d;a!=b;a++){
             if(this.horas[a]!=null){
-            System.out.println(this.horas[a].getHora());
             AM+=this.horas[a].getAmayorxHora();}
-             System.out.println(AM);
-        }
+        }System.out.println("CLIENTES AM: "+AM);
         return AM;}
      public int horavshoraEM(int d,int b){
         int embara=0;
-        for(int a=0;a!=b;a++){
-            System.out.println(this.horas[a]);
+        for(int a=d;a!=b;a++){
             if(this.horas[a]!=null){
-            System.out.println(this.horas[a].getHora());
-            embara+=this.horas[a].getAmayorxHora();}
-             System.out.println(embara);
-        }
+            embara+=this.horas[a].getEmbrazadasxHora();}
+             
+        }System.out.println("CLIENTES Embarazadas: "+embara);
         return embara;}
      public int horavshoraCO(int d,int b){
         int corpo=0;
-        for(int a=0;a!=b;a++){
-            System.out.println(this.horas[a]);
+        for(int a=d;a!=b;a++){
             if(this.horas[a]!=null){
-            System.out.println(this.horas[a].getHora());
-            corpo+=this.horas[a].getAmayorxHora();}
-             System.out.println(corpo);
-        }
+            corpo+=this.horas[a].getCorporativosxHora();}
+            }System.out.println("CLIENTES co: "+corpo);
         return corpo;}
      public int horavshoraRE(int d,int b){
         int reg=0;
-        for(int a=0;a!=b;a++){
-            System.out.println(this.horas[a]);
+        for(int a=d;a!=b;a++){
             if(this.horas[a]!=null){
-            System.out.println(this.horas[a].getHora());
-            reg+=this.horas[a].getAmayorxHora();}
-             System.out.println(reg);
-        }
+            reg+=this.horas[a].getRegularesxHora();}
+        }System.out.println("CLIENTES re: "+reg);
         return reg;}
     public String[] listaDias(){
          Dia[] Dguardados=this.leer();

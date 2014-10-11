@@ -186,6 +186,9 @@
         </Component>
         <Component class="javax.swing.JLabel" name="BLogo">
           <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="26" green="87" red="e8" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="jLabel4"/>
           </Properties>
         </Component>
