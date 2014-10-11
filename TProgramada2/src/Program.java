@@ -122,11 +122,6 @@ public class Program extends javax.swing.JFrame {
 
         jButton1.setText("ocupar");
         jButton1.setToolTipText("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         Reportes.setFont(new java.awt.Font("Liberation Serif", 2, 18)); // NOI18N
         Reportes.setText("Reportes");
@@ -266,11 +261,6 @@ public class Program extends javax.swing.JFrame {
         this.total.saveList();
         this.checkear();
     }//GEN-LAST:event_AñadirActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       this.Bank.setCactual((Banco.Cajero)Lcajeros.get(LCajeros.getSelectedIndex()));
-       this.Bank.getCactual().setStatus(false); LCajeros.setListData(this.Bank.getNombres());
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
         this.dia.guardar();
