@@ -1,5 +1,7 @@
 import java.awt.Image;
 import java.io.File;    
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -255,7 +257,9 @@ public class Program extends javax.swing.JFrame {
 
     private void AñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirActionPerformed
         if (this.CNombre.getText().equals("")||this.CCorreo.getText().equals("")){JOptionPane.showMessageDialog(rootPane,"Información de cliente incompleta");return;}
-        System.out.println(new Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()).getNombre());
+        if(!this.validarEmail(this.CCorreo.getText())){
+           JOptionPane.showMessageDialog(rootPane,"Correo electronico incorrecto");return; 
+        }
         this.clientes.queue(new Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()));
         this.total.add(new Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()));
         this.total.saveList();
@@ -267,11 +271,22 @@ public class Program extends javax.swing.JFrame {
         new BReportes().setVisible(true);
     }//GEN-LAST:event_ReportesActionPerformed
 
+     private  boolean validarEmail(String email) {
+        // Compiles the given regular expression into a pattern.
+        Pattern pattern = Pattern.compile(PATTERN_EMAIL);
+ 
+        // Match the given input against this pattern
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+ 
+    }
     Dia dia=new Dia();
     DefaultListModel Lcajeros;
     private Banco Bank;
     Queue clientes=new Queue();
     Lista total=new Lista();
+    private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Añadir;
     private javax.swing.JLabel BLogo;
