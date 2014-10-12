@@ -5,7 +5,17 @@
  */
 
 
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 import javax.swing.SpinnerModel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import org.jfree.chart.*;
 
 import org.jfree.chart.plot.CategoryPlot;
@@ -85,6 +95,7 @@ public class Graficas extends javax.swing.JFrame {
         horaFin = new javax.swing.JSpinner();
         jFin = new javax.swing.JLabel();
         jIni = new javax.swing.JLabel();
+        GuarImage = new javax.swing.JRadioButton();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -225,6 +236,13 @@ public class Graficas extends javax.swing.JFrame {
 
         jIni.setText("Hora de inicio");
 
+        GuarImage.setText("Grafico en JPG?");
+        GuarImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuarImageActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -247,7 +265,8 @@ public class Graficas extends javax.swing.JFrame {
                                                     .addComponent(jIni)
                                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                         .addComponent(ComboDia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(jFin))))))
+                                                        .addComponent(jFin))))
+                                            .addComponent(GuarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(69, 69, 69)
                                         .addComponent(p))
@@ -263,7 +282,8 @@ public class Graficas extends javax.swing.JFrame {
                                     .addComponent(jCorp, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3)
                                     .addComponent(jregular, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Jtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(Jtotal, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(24, 24, 24))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(135, 135, 135)
                                 .addComponent(horaFin)))
@@ -271,9 +291,9 @@ public class Graficas extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(135, 135, 135)
                         .addComponent(horaIni)))
-                .addGap(18, 18, 18)
+                .addGap(59, 59, 59)
                 .addComponent(CAPAS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61))
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,7 +320,9 @@ public class Graficas extends javax.swing.JFrame {
                     .addComponent(b, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(GuarImage)
+                .addGap(1, 1, 1)
                 .addComponent(jespeciales)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jAmayor)
@@ -389,21 +411,34 @@ public class Graficas extends javax.swing.JFrame {
                plot.setDomainGridlinesVisible(true);
                
            }else{
-               //grafico de Pastel
                DefaultPieDataset data = new DefaultPieDataset();
-               data.setValue("Especial",especial);
-               data.setValue("A.Mayor",mayor);
-               data.setValue("Embarazadas",embarazada);
-               data.setValue("Corporativas",corporativo);
-               data.setValue("Regulares",regular);
-               
-               //chart = ChartFactory.createPieChart3D("Grafico de Pastel",data, true,true,true);
-               chart = ChartFactory.createPieChart("Grafico de Pastel",data, true,true,true);
-               
+            data.setValue("Especial",especial);
+            data.setValue("A.Mayor",mayor);
+            data.setValue("Embarazadas",embarazada);
+            data.setValue("Corporativas",corporativo);
+            data.setValue("Regulares",regular);
+            chart = ChartFactory.createPieChart("Grafico de Pastel",data, true,true,true);
+            // BufferedImage imagen = chart.createBufferedImage(300, 300, BufferedImage.TYPE_INT_RGB, null);
+              //  File JPG=new File("grafico.jpg"); 
+               // ImageIO.write(imagen,"jpg",JPG);
            
        }
         panel= new ChartPanel(chart);
         panel.setBounds(5,10,400,350);
+        if (GuarImage.isSelected()){
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG", "jpg");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showSaveDialog(null);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            try {
+                BufferedImage imagen = chart.createBufferedImage(300, 300, BufferedImage.TYPE_INT_RGB, null);
+                File JPG=new File(chooser.getSelectedFile().getAbsolutePath()+".jpg");
+                ImageIO.write(imagen,"jpg",JPG);
+            } catch (IOException ex) {
+                Logger.getLogger(Graficas.class.getName()).log(Level.SEVERE, null, ex);
+            }}
+    }
         
         
             if(b.isSelected()){
@@ -436,12 +471,17 @@ public class Graficas extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_ComboDiaActionPerformed
 
+    private void GuarImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuarImageActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_GuarImageActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Barras;
     private javax.swing.JLayeredPane CAPAS;
     private javax.swing.JComboBox ComboDia;
+    private javax.swing.JRadioButton GuarImage;
     private javax.swing.JLabel Jtotal;
     private javax.swing.JPanel Lineas;
     private javax.swing.JPanel Pastel;
