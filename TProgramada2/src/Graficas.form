@@ -368,7 +368,7 @@
     </Component>
     <Component class="javax.swing.JRadioButton" name="GuarImage">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Grafico en JPG?"/>
+        <Property name="text" type="java.lang.String" value="Guardar Grafico"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GuarImageActionPerformed"/>

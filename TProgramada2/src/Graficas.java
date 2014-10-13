@@ -237,7 +237,7 @@ public class Graficas extends javax.swing.JFrame {
 
         jIni.setText("Hora de inicio");
 
-        GuarImage.setText("Grafico en JPG?");
+        GuarImage.setText("Guardar Grafico");
         GuarImage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuarImageActionPerformed(evt);
