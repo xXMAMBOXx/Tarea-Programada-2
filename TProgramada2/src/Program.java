@@ -41,7 +41,7 @@ public class Program extends javax.swing.JFrame {
                 this.dia.guardar();
                 }else{this.dia.guardar();}
                 System.out.println("SE INFORMO QUE HAY DESOCUPADO TAMBN");
-                //INFthis.clientes.getFront().informarCliente(true,this.Bank.getImage());
+                this.clientes.getFront().informarCliente(true,this.Bank.getImage());
                 this.dia.atendido(this.clientes.getFront());
                 JOptionPane.showMessageDialog(rootPane,"Se le asigno un nuevo cliente al cajero libre \n Nombre de cliente: "+this.clientes.getFront().getNombre()+"\n Correo de cliente: "+this.clientes.getFront().getCorreo());
                 this.clientes.dequeue();
@@ -70,7 +70,6 @@ public class Program extends javax.swing.JFrame {
         Añadir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         Reportes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -122,9 +121,6 @@ public class Program extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(252, 240, 240));
         jLabel2.setText("Correo:");
 
-        jButton1.setText("ocupar");
-        jButton1.setToolTipText("");
-
         Reportes.setFont(new java.awt.Font("Liberation Serif", 2, 18)); // NOI18N
         Reportes.setText("Reportes");
         Reportes.addActionListener(new java.awt.event.ActionListener() {
@@ -143,14 +139,12 @@ public class Program extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(Reportes, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
-                                .addComponent(jButton1)
-                                .addGap(109, 109, 109))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 339, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addGap(8, 8, 8)
@@ -168,7 +162,7 @@ public class Program extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addGap(34, 34, 34)
                                         .addComponent(LBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
@@ -211,12 +205,9 @@ public class Program extends javax.swing.JFrame {
                         .addGap(41, 41, 41)
                         .addComponent(TCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(Añadir)
-                                .addGap(30, 30, 30)
-                                .addComponent(Reportes)))
+                        .addComponent(Añadir)
+                        .addGap(30, 30, 30)
+                        .addComponent(Reportes)
                         .addGap(55, 55, 55))))
         );
 
@@ -245,7 +236,7 @@ public class Program extends javax.swing.JFrame {
             if(!this.dia.isToday()){this.dia.guardar();this.dia=new Dia();
             this.dia.guardar();
             }else{this.dia.guardar();}
-            //INFthis.clientes.getFront().informarCliente(true,this.Bank.getImage());
+            this.clientes.getFront().informarCliente(true,this.Bank.getImage());
             this.dia.atendido(this.clientes.getFront());this.clientes.saveQueue();
             this.clientes.readQueue();
             this.Bank.getCactual().setStatus(false);JOptionPane.showMessageDialog(rootPane,"Se le asigno un nuevo cliente al cajero libre \n Nombre de cliente: "+this.clientes.getFront().getNombre()+"\n Correo de cliente: "+this.clientes.getFront().getCorreo());
@@ -263,6 +254,7 @@ public class Program extends javax.swing.JFrame {
         this.clientes.queue(new Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()));
         this.total.add(new Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()));
         this.total.saveList();
+        this.clientes.getFront().informarCliente(false,this.Bank.getImage());
         this.checkear();
     }//GEN-LAST:event_AñadirActionPerformed
 
@@ -272,10 +264,10 @@ public class Program extends javax.swing.JFrame {
     }//GEN-LAST:event_ReportesActionPerformed
 
      private  boolean validarEmail(String email) {
-        // Compiles the given regular expression into a pattern.
+        // Compila el String en iun pattern
         Pattern pattern = Pattern.compile(PATTERN_EMAIL);
  
-        // Match the given input against this pattern
+        // Verifica similitudes con el pattern
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
  
@@ -298,7 +290,6 @@ public class Program extends javax.swing.JFrame {
     private javax.swing.JButton Liberar;
     private javax.swing.JButton Reportes;
     private javax.swing.JComboBox TCliente;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
