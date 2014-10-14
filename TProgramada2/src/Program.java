@@ -256,6 +256,7 @@ public class Program extends javax.swing.JFrame {
         this.total.saveList();
         this.clientes.getFront().informarCliente(false,this.Bank.getImage());
         this.checkear();
+        this.CNombre.setText("");this.CCorreo.setText("");
     }//GEN-LAST:event_AñadirActionPerformed
 
     private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
