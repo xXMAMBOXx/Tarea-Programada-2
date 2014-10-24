@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -14,22 +15,26 @@ import javax.mail.BodyPart;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
 
-public class eMail {
+public class eMail implements  Serializable {
     private final String receptor;
     private String mensaje;
     final String emailemisor = "carc1903@gmail.com";//change accordingly carc1903@gmail.com
     final String contraseña = "CA19rc0391";//change accordingly
     final String host = "smtp.gmail.com";
+    final String hora;
+    final String fecha ;
     Date now = new Date(System.currentTimeMillis());
     SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
     SimpleDateFormat hour = new SimpleDateFormat("HH:mm:ss");
     
 
-    public eMail(String nombre,int prioridad,String mailreceptor) {
+    public eMail(String nombre,String prioridad,String mailreceptor) {
         this.receptor=mailreceptor;
+        this.fecha=date.format(now);
+        this.hora=hour.format(now);
         this.mensaje="Estimado(a) "+nombre+"\nSe ha registrado para ser atendido, "
             + "su información es la siguiente:\nNombre: "+nombre+"\nTipo de cliente:"+prioridad
-            +"\nFecha: "+date.format(now)+"\nHora: "+hour.format(now);
+            +"\nFecha: "+this.fecha+"\nHora: "+ this.hora;
     }
     
     public void send(boolean y,String logo){
@@ -69,5 +74,11 @@ public class eMail {
             } catch (MessagingException E) {
             throw new RuntimeException(E);
         }
+    }
+    public String horaSend(){
+        return this.hora;
+    }
+    public String fechaSend(){
+     return this.fecha;   
     }
 }

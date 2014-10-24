@@ -1,14 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author mambocoto
- */
-public class Lista {
-    private class Nodo{
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+
+public class Lista implements  Serializable {
+    private class Nodo implements  Serializable{
         private Cliente data;
         private Nodo next;
         private Nodo previous;
@@ -78,11 +77,9 @@ public class Lista {
         this.first=this.first.getNext();
         this.first.setPrevious(null);
     }
-    public Object getDataActual(){
-        if (actual!=null){
-           this.actual.getData(); 
-        }
-        return null;
+    public Cliente getDataActual(){
+       return this.actual.getData(); 
+       
     }
     public Cliente getFirst(){
         if (this.size!=0){
@@ -113,7 +110,31 @@ public class Lista {
             }
         }
     }
-    
+    public void moveNext(){
+        if(this.actual.getNext()!=null){
+        this.actual=this.actual.getNext();}
+    }
+    public void saveList() {
+        try{
+        File archivo = new File("List.obj");
+        FileOutputStream filew=new FileOutputStream(archivo);
+        ObjectOutputStream oos=new ObjectOutputStream(filew);
+        oos.writeObject(this);System.out.println("cantidad en list: "+this.size);
+        System.out.println("guardo la list");
+        oos.close();}catch(Exception e){System.out.println("no leyo la list");}
+    }
+    public Lista readList(){
+        try{
+        System.out.println("LEYEEEEEEEEEEEEEEEEEEEEEEEEEEENDO");
+        File f = new File("List.obj");
+        FileInputStream fis=new FileInputStream(f);
+        ObjectInputStream ios=new ObjectInputStream(fis);
+        Lista list=(Lista)ios.readObject();
+        if(this.size!=0){System.out.println("list "+this.actual.data.getNombre()+" LISTA GUARDAD:");list.ToString();}
+        return list;
+        }catch(Exception e){System.out.println("no leyo la list");}
+       return null;
+    }
     public void ToString(){
         this.moveToFirst();
         for(int i=0;i!=this.size;i++){

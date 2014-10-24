@@ -94,7 +94,7 @@ public class FBanco extends javax.swing.JFrame {
                         .addComponent(BLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(147, 147, 147))))
             .addGroup(PBancoLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(27, 27, 27)
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -171,15 +171,21 @@ public class FBanco extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         File existe=new File("Banco.obj");
+        System.out.println("banco"+!existe.exists());
         if(!existe.exists()){
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                Lista initDatos=new Lista();
+                initDatos.saveList();
                 new FBanco().setVisible(true);  
             }
         });}else{java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Bank=Bank.selfCargar();
-                new Program(Bank).setVisible(true);
+                Program Programa=new Program(Bank);
+                Programa.setVisible(true);
+                Programa.checkear();
+                
             }
         });}
        

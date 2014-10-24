@@ -34,26 +34,29 @@ public class BReportes extends javax.swing.JFrame {
         for(int j=0;this.Lreportes.getSize()!=j;j++){
             for (int i=0;i!=fila.length;i+=5){
              fila[i]=this.Lreportes.getDataActual().getNombre(); 
-             System.out.println(this.Lreportes.getDataActual().getNombre());
         
              fila[i+1]=this.Lreportes.getDataActual().getCorreo();
-             System.out.println(this.Lreportes.getDataActual().getCorreo());
         
              fila[i+2]=this.Lreportes.getDataActual().horaAtendido();
-             System.out.println(this.Lreportes.getDataActual().getCorreo());
-        
-             fila[i+3]=this.Lreportes.getDataActual().fechaAtendido();
-             System.out.println(this.Lreportes.getDataActual().getCorreo());
-        
-             fila[i+4]=this.Lreportes.getDataActual().getTipo();
              
-             System.out.println(this.Lreportes.getDataActual().getTipo());
+             fila[i+3]=this.Lreportes.getDataActual().fechaAtendido();
+            
+             fila[i+4]=this.Lreportes.getDataActual().getTipo();
             }
             this.Lreportes.moveNext();
             modelo.addRow(fila);
         } 
         TablaDinamica.setAutoResizeMode(TablaDinamica.getAutoResizeMode());
         TablaDinamica.setModel(modelo);
+    }
+    public void eliminarTable(){
+        DefaultTableModel modelo= (DefaultTableModel)this.TablaDinamica.getModel();
+        System.out.println("BORRANDOOOOOOOOO");
+        for(int i=0;i!=modelo.getRowCount();i+=0){
+            System.out.println("BORRANDO"+i+"NUMERO DE FILAS    "+modelo.getRowCount());
+            modelo.removeRow(i);
+        }
+        this.TablaDinamica.setModel(modelo);
     }
     public void llenarTable(Lista Lreportes){
         Lreportes.readList().ToString();
@@ -96,8 +99,8 @@ public class BReportes extends javax.swing.JFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         RHora = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jRadioButton5 = new javax.swing.JRadioButton();
+        RFecha = new javax.swing.JRadioButton();
+        RPriory = new javax.swing.JRadioButton();
         BLogo = new javax.swing.JLabel();
         LBanco = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -149,15 +152,25 @@ public class BReportes extends javax.swing.JFrame {
         RHora.setText("Hora");
         RHora.setFocusPainted(false);
 
-        jRadioButton4.setBackground(new java.awt.Color(238, 133, 28));
-        TipoOrdenamiento.add(jRadioButton4);
-        jRadioButton4.setText("Fecha");
-        jRadioButton4.setFocusPainted(false);
+        RFecha.setBackground(new java.awt.Color(238, 133, 28));
+        TipoOrdenamiento.add(RFecha);
+        RFecha.setText("Fecha");
+        RFecha.setFocusPainted(false);
+        RFecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RFechaActionPerformed(evt);
+            }
+        });
 
-        jRadioButton5.setBackground(new java.awt.Color(238, 133, 28));
-        TipoOrdenamiento.add(jRadioButton5);
-        jRadioButton5.setText("Prioridad");
-        jRadioButton5.setFocusPainted(false);
+        RPriory.setBackground(new java.awt.Color(238, 133, 28));
+        TipoOrdenamiento.add(RPriory);
+        RPriory.setText("Prioridad");
+        RPriory.setFocusPainted(false);
+        RPriory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RPrioryActionPerformed(evt);
+            }
+        });
 
         BLogo.setBackground(new java.awt.Color(243, 131, 19));
         BLogo.setText("jLabel1");
@@ -192,9 +205,9 @@ public class BReportes extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(RHora)
                         .addGap(63, 63, 63)
-                        .addComponent(jRadioButton4)
+                        .addComponent(RFecha)
                         .addGap(52, 52, 52)
-                        .addComponent(jRadioButton5)
+                        .addComponent(RPriory)
                         .addGap(110, 110, 110))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,8 +239,8 @@ public class BReportes extends javax.swing.JFrame {
                     .addComponent(jRadioButton1)
                     .addComponent(jRadioButton2)
                     .addComponent(RHora)
-                    .addComponent(jRadioButton4)
-                    .addComponent(jRadioButton5))
+                    .addComponent(RFecha)
+                    .addComponent(RPriory))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
@@ -255,6 +268,18 @@ public class BReportes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
+    private void RPrioryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RPrioryActionPerformed
+        this.Lreportes.bubbleSort();
+        this.eliminarTable();
+        this.llenarTable(Lreportes);
+    }//GEN-LAST:event_RPrioryActionPerformed
+
+    private void RFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RFechaActionPerformed
+       this.Lreportes.readList();
+       this.eliminarTable();
+       this.llenarTable();
+    }//GEN-LAST:event_RFechaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -264,7 +289,9 @@ public class BReportes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BLogo;
     private javax.swing.JLabel LBanco;
+    private javax.swing.JRadioButton RFecha;
     private javax.swing.JRadioButton RHora;
+    private javax.swing.JRadioButton RPriory;
     private javax.swing.JTable TablaDinamica;
     private javax.swing.ButtonGroup TipoOrdenamiento;
     private javax.swing.JButton jButton1;
@@ -273,8 +300,6 @@ public class BReportes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JScrollPane scroll;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,9 +1,15 @@
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Dia {
-    private class hora{
+public class Dia implements  Serializable {
+    private class hora implements  Serializable{
         private int atendidos=0;
         Date now = new Date(System.currentTimeMillis());
         private String hora;
@@ -40,17 +46,22 @@ public class Dia {
     this.fecha=date.format(now);
     this.horaActual=new hora();
     regulares=0;corporativo=0;embarazada=0;Amayor=0;Especial=0;
+    File archivo = new File("Días.obj");
+    System.out.println("guardo dia? ");
+    if(!archivo.exists()){this.Initguardar(); System.out.println("SIII");
+    }
+    
     }
     public void atendido(Cliente a){
-        if(a.getPrioridad()==1){
+        if(a.getPrioridad()==0){
             this.Especial++;}
-        if(a.getPrioridad()==2){
+        if(a.getPrioridad()==1){
             this.Amayor++;}
-        if(a.getPrioridad()==3){
+        if(a.getPrioridad()==2){
             this.embarazada++;}
         if(a.getPrioridad()==3){
             this.corporativo++;}
-        if(a.getPrioridad()==3){
+        if(a.getPrioridad()==4){
             this.regulares++;}
         System.out.print(!this.horaActual.getHora().equals(this.horaActual.getActual()));
         if (!this.horaActual.getHora().equals(this.horaActual.getActual())){
@@ -76,6 +87,52 @@ public class Dia {
     public int getTotal(){
         return this.Amayor+this.Especial+this.corporativo+this.embarazada+this.regulares;
     }
+    public void Initguardar(){
+        Dia[] Dias=new Dia[365];
+        Dias[0]=this;
+        try{
+        File archivo = new File("Días.obj");
+        FileOutputStream filew=new FileOutputStream(archivo);
+        ObjectOutputStream oos=new ObjectOutputStream(filew);
+        oos.writeObject(Dias);System.out.println("guardo la lista de díasDguardados empezando");
+        oos.close();}catch(Exception e){System.out.println("no guardo lista Días");}
+    }
+    public void guardar(){
+        Dia[] Dguardados=this.leer();
+        int total = 0;
+        System.out.println("Antes");
+        for(int j=0;Dguardados[j]!=null;j++){
+            System.out.println("dia: "+Dguardados[j].fecha+"iteraciones"+j);
+            total=j;
+        }
+        System.out.println(total);
+        if(Dguardados[total].fecha.equals(this.fecha)){
+           Dguardados[total]=this;
+        }
+        else if(!Dguardados[total].fecha.equals(new Dia().fecha)){
+        Dguardados[total+1]=this;}
+        try{
+           File archivo = new File("Días.obj");
+           FileOutputStream filew=new FileOutputStream(archivo);
+           ObjectOutputStream oos=new ObjectOutputStream(filew);
+           oos.writeObject(Dguardados);System.out.println("guardo la lista de días");
+           oos.close();}catch(Exception e){System.out.println("no guardo lista Días");}
+        System.out.println("DESPUES:"+Dguardados[1]);
+        for(int j=0;Dguardados[j]!=null;j++){
+            System.out.println("dia: "+Dguardados[j].fecha);
+            
+        }
+    }
+    public Dia[] leer(){
+        try{
+        File f = new File("Días.obj");
+        FileInputStream fis=new FileInputStream(f);
+        ObjectInputStream ios=new ObjectInputStream(fis);
+        Dia[] Ldias=(Dia[])ios.readObject();
+        return Ldias;
+        }catch(Exception e){System.out.println("no leyo días");}
+        return null;
+    }
     public int horavshora(int d,int b){
         int nclientes=0;
         for(int a=0;a!=b;a++){
@@ -87,5 +144,18 @@ public class Dia {
         }
         return nclientes;
     }
-    
+    public String[] listaDias(){
+         Dia[] Dguardados=this.leer();
+         String[] fechas=new String[Dguardados.length];
+         for(int i=0;Dguardados[i]!=null;i++){
+         fechas[i]=Dguardados[i].fecha;
+         }
+         return fechas;
+    }
+    public boolean isToday(){
+        System.out.println("es hoy"+this.fecha.equals(new Dia().fecha));
+        if(this.fecha.equals(new Dia().fecha)){
+            return true;
+        }else return false;
+    }
 }

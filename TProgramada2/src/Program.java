@@ -1,39 +1,36 @@
-
 import java.awt.Image;
+import java.io.File;    
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author mambocoto
- */
+
 public class Program extends javax.swing.JFrame {
 
     /**
      * Creates new form Program
      */
-    public Program(Banco x) {
+    public Program(Banco x) {     
         this.Bank=x;
-        System.out.println(this.Bank.getImage()+" "+x.getNombre());
         initComponents();
+        System.out.println("LISTa LEYENDO");
+        this.total=this.total.readList();this.total.ToString();
         InstallBanco(x);this.TCliente.setSelectedIndex(4);
+        File existe=new File("Queue.obj");
+        System.out.println("queue"+existe.exists());
+        if (existe.exists()){
+        this.clientes=this.clientes.readQueue();
+        this.clientes.deleteFile();this.clientes.lenght();
+        }
+        System.out.println(this.Bank.getImage()+" "+x.getNombre());
         
     }
     public void InstallBanco(Banco banco){
         ImageIcon logo= new ImageIcon(this.Bank.getImage());
         logo.setImage(logo.getImage().getScaledInstance(250, 125, Image.SCALE_SMOOTH));
         BLogo.setIcon(logo);
-        System.out.println(this.Bank.getNombre());
         LBanco.setText(this.Bank.getNombre());
-        ajustarCajeros();
-        
-       
+        ajustarCajeros();     
     }
     public void ajustarCajeros(){
         Lcajeros=new DefaultListModel();
@@ -46,10 +43,17 @@ public class Program extends javax.swing.JFrame {
                 System.out.println("SE INFORMO QUE HAY DESOCUPADO TAMBN");
                 //pba this.clientes.getFront().informarCliente(true,this.Bank.getImage());
                 this.dia.atendido(this.clientes.getFront());
-               
+                JOptionPane.showMessageDialog(rootPane,"Se le asigno un nuevo cliente al cajero libre \n Nombre de cliente: "+this.clientes.getFront().getNombre()+"\n Correo de cliente: "+this.clientes.getFront().getCorreo());
                 this.clientes.dequeue();
                 this.Bank.getCajeros()[i].setStatus(false);
             }
+        } if (this.clientes.lenght()!=0){
+            this.clientes.saveQueue();
+            this.clientes.readQueue();
+        }else{this.clientes.deleteFile();}
+        LCajeros.setListData(this.Bank.getNombres());
+        if(!this.dia.isToday()){this.dia.guardar();this.dia=new Dia();
+       // this.LCajeros.setListData(this.dia.listaDias());
         }
         
     }
@@ -71,6 +75,7 @@ public class Program extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        Reportes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(228, 133, 38));
@@ -105,7 +110,7 @@ public class Program extends javax.swing.JFrame {
         TCliente.setFont(new java.awt.Font("Liberation Serif", 0, 17)); // NOI18N
         TCliente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cliente Especial", "Adulto Mayor", "Mujer Embarazada", "Cliente Corporotivo", "Cliente Regular" }));
 
-        Añadir.setFont(new java.awt.Font("Liberation Serif", 0, 18)); // NOI18N
+        Añadir.setFont(new java.awt.Font("Liberation Serif", 2, 18)); // NOI18N
         Añadir.setText("Añadir");
         Añadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,6 +134,14 @@ public class Program extends javax.swing.JFrame {
             }
         });
 
+        Reportes.setFont(new java.awt.Font("Liberation Serif", 2, 18)); // NOI18N
+        Reportes.setText("Reportes");
+        Reportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReportesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -139,31 +152,42 @@ public class Program extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(BLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(34, 34, 34)
-                                .addComponent(LBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(CCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(3, 3, 3)
-                                        .addComponent(CNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(TCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap()
+                                .addComponent(Reportes, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1)
+                                .addGap(109, 109, 109))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(Añadir, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton1)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
+                                        .addGap(8, 8, 8)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(3, 3, 3)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(CCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(CNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(TCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(34, 34, 34)
+                                        .addComponent(LBanco, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(Añadir, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 154, Short.MAX_VALUE)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Liberar)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Cajeros, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(Cajeros, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(85, 85, 85))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(Liberar, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(36, 36, 36)))))
                 .addGap(24, 24, 24))
         );
         jPanel1Layout.setVerticalGroup(
@@ -183,11 +207,11 @@ public class Program extends javax.swing.JFrame {
                             .addComponent(CNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                        .addGap(1, 1, 1)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Liberar)
-                        .addGap(0, 9, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -195,15 +219,14 @@ public class Program extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(41, 41, 41)
                         .addComponent(TCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(75, 75, 75)
-                                .addComponent(Añadir)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1)
-                                .addGap(72, 72, 72))))))
+                                .addComponent(Añadir)
+                                .addGap(30, 30, 30)
+                                .addComponent(Reportes)))
+                        .addGap(55, 55, 55))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -230,9 +253,11 @@ public class Program extends javax.swing.JFrame {
         if (this.clientes.lenght()!=0){
             System.out.println("informará:  "+this.clientes.getFront().getNombre()+this.clientes.getFront().getCorreo());
             //pbathis.clientes.getFront().informarCliente(true,this.Bank.getImage());
-            this.Bank.getCactual().setStatus(false);JOptionPane.showMessageDialog(rootPane,"Se le asigno un nuevo cliente al cajero liberado \n Nombre de cliente: "+this.clientes.getFront().getNombre());
+            this.dia.atendido(this.clientes.getFront());this.clientes.saveQueue();
+            this.clientes.readQueue();
+            this.Bank.getCactual().setStatus(false);JOptionPane.showMessageDialog(rootPane,"Se le asigno un nuevo cliente al cajero libre \n Nombre de cliente: "+this.clientes.getFront().getNombre()+"\n Correo de cliente: "+this.clientes.getFront().getCorreo());
             this.clientes.dequeue();return;
-        }
+        }else{this.clientes.deleteFile();}
         this.Bank.getCactual().setStatus(true); LCajeros.setListData(this.Bank.getNombres());
     }//GEN-LAST:event_LiberarActionPerformed
 
@@ -241,8 +266,9 @@ public class Program extends javax.swing.JFrame {
         System.out.println(new Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()).getNombre());
         //pbanew Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()).informarCliente(false, Bank.getImage());
         this.clientes.queue(new Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()));
+        this.total.add(new Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()));
+        this.total.saveList();
         this.checkear();
-        LCajeros.setListData(this.Bank.getNombres());
     }//GEN-LAST:event_AñadirActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -251,11 +277,15 @@ public class Program extends javax.swing.JFrame {
        System.out.println(this.dia.horavshora(0,7));
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
+        new BReportes().setVisible(true);
+    }//GEN-LAST:event_ReportesActionPerformed
+
     Dia dia=new Dia();
     DefaultListModel Lcajeros;
     private Banco Bank;
     Queue clientes=new Queue();
-    
+    Lista total=new Lista();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Añadir;
     private javax.swing.JLabel BLogo;
@@ -265,6 +295,7 @@ public class Program extends javax.swing.JFrame {
     private javax.swing.JLabel LBanco;
     private javax.swing.JList LCajeros;
     private javax.swing.JButton Liberar;
+    private javax.swing.JButton Reportes;
     private javax.swing.JComboBox TCliente;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

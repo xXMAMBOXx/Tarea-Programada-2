@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author mambocoto
- */
-public class Cliente {
+
+import java.io.Serializable;
+public class Cliente implements  Serializable {
     private String Nombre;
     private String Correo;
     private int Prioridad;
+    private String tipo;
     private eMail email;
     Cliente(){
         this.Nombre=null;
@@ -20,7 +14,8 @@ public class Cliente {
         this.Nombre=nombre;
         this.Correo=correo;
         this.Prioridad=prioridad;
-         this.email=new eMail(this.Nombre,this.Prioridad,this.Correo);
+        this.tipo=this.setTipo();
+        this.email=new eMail(this.Nombre,this.tipo,this.Correo);
     }
     public String getNombre(){
         return this.Nombre;
@@ -33,5 +28,26 @@ public class Cliente {
     }
     public void informarCliente(boolean YN,String logo){
         this.email.send(YN,logo);
+    }
+    public String horaAtendido(){
+        return this.email.horaSend();
+    }
+    public String fechaAtendido(){
+        return this.email.fechaSend();
+    }
+    private String setTipo(){
+        if(this.Prioridad==0){
+            return "Especial";}
+        if(this.Prioridad==1){
+            return "Adulto mayor";}
+        if(this.Prioridad==2){
+            return "Embarazada";}
+        if(this.Prioridad==3){
+            return "Corporativo";}
+        else{
+           return "Regular";}
+    }
+    public String getTipo(){
+        return this.tipo;
     }
 }
