@@ -397,9 +397,7 @@ public class BReportes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_graficarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+   
    
     Lista Lreportes=new Lista();
     Banco Bank= new Banco();

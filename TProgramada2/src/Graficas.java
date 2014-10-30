@@ -21,6 +21,8 @@ public class Graficas extends javax.swing.JFrame {
     Dia actual;
     /**
      * Creates new form Graficas
+     * @param graficar
+     * Ingresa con el dia seleccionado
      */
     public Graficas(Dia graficar) {
         actual=graficar;
@@ -339,9 +341,6 @@ public class Graficas extends javax.swing.JFrame {
         //new Graficas().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
