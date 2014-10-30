@@ -110,6 +110,41 @@ public class Lista implements  Serializable {
             }
         }
     }
+    public void bubbleName(){
+        boolean flag;
+        this.moveToFirst();
+        for (int i=0;i!=this.size-1;i++){
+            flag=true;
+            this.moveToFirst();
+            for(int j=0;this.size-1!=j;j++){
+                if (this.actual.data.getNombre().compareTo(this.actual.getNext().getData().getNombre())>0){
+                    System.out.println("es mayor");
+                    flag=false;
+                    this.actual.exchange(actual.getNext());}
+                if(flag&&actual.next.getNext()==null){
+                    return;}
+                this.actual=this.actual.getNext();
+            }
+        }
+    }
+    public void bubbleCorreo(){
+        boolean flag;yt
+        this.moveToFirst();
+        for (int i=0;i!=this.size-1;i++){
+            flag=true;
+            this.moveToFirst();
+            for(int j=0;this.size-1!=j;j++){
+                System.out.println("es MAYOOOOOER "+this.actual.data.getCorreo()+this.actual.getNext().getData().getCorreo()+this.actual.data.getCorreo().compareTo(this.actual.getNext().getData().getCorreo()));
+                if (this.actual.data.getCorreo().compareTo(this.actual.getNext().getData().getCorreo())>0){
+                    System.out.println("es mayor");
+                    flag=false;
+                    this.actual.exchange(actual.getNext());}
+                if(flag&&actual.next.getNext()==null){
+                    return;}
+                this.actual=this.actual.getNext();
+            }
+        }
+    }
     public void moveNext(){
         if(this.actual.getNext()!=null){
         this.actual=this.actual.getNext();}
@@ -119,18 +154,16 @@ public class Lista implements  Serializable {
         File archivo = new File("List.obj");
         FileOutputStream filew=new FileOutputStream(archivo);
         ObjectOutputStream oos=new ObjectOutputStream(filew);
-        oos.writeObject(this);System.out.println("cantidad en list: "+this.size);
-        System.out.println("guardo la list");
+        oos.writeObject(this);
         oos.close();}catch(Exception e){System.out.println("no leyo la list");}
     }
     public Lista readList(){
         try{
-        System.out.println("LEYEEEEEEEEEEEEEEEEEEEEEEEEEEENDO");
         File f = new File("List.obj");
         FileInputStream fis=new FileInputStream(f);
         ObjectInputStream ios=new ObjectInputStream(fis);
         Lista list=(Lista)ios.readObject();
-        if(this.size!=0){System.out.println("list "+this.actual.data.getNombre()+" LISTA GUARDAD:");list.ToString();}
+        if(this.size!=0){list.ToString();}
         return list;
         }catch(Exception e){System.out.println("no leyo la list");}
        return null;

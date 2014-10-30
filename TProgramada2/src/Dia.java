@@ -105,7 +105,7 @@ public class Dia implements  Serializable {
             System.out.println("dia: "+Dguardados[j].fecha+"iteraciones"+j);
             total=j;
         }
-        System.out.println(total);
+        System.out.println("ULTIMAAA ENTRADA"+Dguardados[total].fecha);
         if(Dguardados[total].fecha.equals(this.fecha)){
            Dguardados[total]=this;
         }
@@ -117,7 +117,7 @@ public class Dia implements  Serializable {
            ObjectOutputStream oos=new ObjectOutputStream(filew);
            oos.writeObject(Dguardados);System.out.println("guardo la lista de días");
            oos.close();}catch(Exception e){System.out.println("no guardo lista Días");}
-        System.out.println("DESPUES:"+Dguardados[1]);
+        System.out.println("DESPUES:"+Dguardados[total]);
         for(int j=0;Dguardados[j]!=null;j++){
             System.out.println("dia: "+Dguardados[j].fecha);
             
@@ -151,6 +151,16 @@ public class Dia implements  Serializable {
          fechas[i]=Dguardados[i].fecha;
          }
          return fechas;
+    }
+    public int nDias(){
+        int contador=0;
+        Dia[] Dguardados=this.leer();
+        System.out.println(Dguardados.length);
+        String[] fechas=new String[Dguardados.length];
+        for(int i=0;Dguardados[i]!=null;i++){
+             contador++;
+         }
+         return contador-1;
     }
     public boolean isToday(){
         System.out.println("es hoy"+this.fecha.equals(new Dia().fecha));

@@ -6,10 +6,7 @@ import javax.swing.JOptionPane;
 
 
 public class Program extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Program
-     */
+    
     public Program(Banco x) {     
         this.Bank=x;
         initComponents();
@@ -29,6 +26,7 @@ public class Program extends javax.swing.JFrame {
         ImageIcon logo= new ImageIcon(this.Bank.getImage());
         logo.setImage(logo.getImage().getScaledInstance(250, 125, Image.SCALE_SMOOTH));
         BLogo.setIcon(logo);
+        this.dia=this.dia.leer()[this.dia.nDias()];
         LBanco.setText(this.Bank.getNombre());
         ajustarCajeros();     
     }
@@ -40,6 +38,10 @@ public class Program extends javax.swing.JFrame {
     public void checkear(){
         for(int i=0;this.Bank.Cajeros.length!=i&&this.clientes.lenght()!=0;i++){
             if (this.Bank.getCajeros()[i].getStatus()==true){
+                if(!this.dia.isToday()){this.dia.guardar();this.dia=new Dia();
+                this.dia.guardar();
+                // this.LCajeros.setListData(this.dia.listaDias());
+                }else{this.dia.guardar();}
                 System.out.println("SE INFORMO QUE HAY DESOCUPADO TAMBN");
                 //pba this.clientes.getFront().informarCliente(true,this.Bank.getImage());
                 this.dia.atendido(this.clientes.getFront());
@@ -52,10 +54,6 @@ public class Program extends javax.swing.JFrame {
             this.clientes.readQueue();
         }else{this.clientes.deleteFile();}
         LCajeros.setListData(this.Bank.getNombres());
-        if(!this.dia.isToday()){this.dia.guardar();this.dia=new Dia();
-       // this.LCajeros.setListData(this.dia.listaDias());
-        }
-        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -251,6 +249,10 @@ public class Program extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane,"El cajero ya esta Disponible");return;
         }
         if (this.clientes.lenght()!=0){
+            if(!this.dia.isToday()){this.dia.guardar();this.dia=new Dia();
+            this.dia.guardar();
+            // this.LCajeros.setListData(this.dia.listaDias());
+            }else{this.dia.guardar();}
             System.out.println("informará:  "+this.clientes.getFront().getNombre()+this.clientes.getFront().getCorreo());
             //pbathis.clientes.getFront().informarCliente(true,this.Bank.getImage());
             this.dia.atendido(this.clientes.getFront());this.clientes.saveQueue();
@@ -259,12 +261,12 @@ public class Program extends javax.swing.JFrame {
             this.clientes.dequeue();return;
         }else{this.clientes.deleteFile();}
         this.Bank.getCactual().setStatus(true); LCajeros.setListData(this.Bank.getNombres());
+        
     }//GEN-LAST:event_LiberarActionPerformed
 
     private void AñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirActionPerformed
-        if (this.CNombre.getText()==""||this.CCorreo.getText()==""){JOptionPane.showMessageDialog(rootPane,"Información de cliente incompleta");return;}
+        if (this.CNombre.getText().equals("")||this.CCorreo.getText().equals("")){JOptionPane.showMessageDialog(rootPane,"Información de cliente incompleta");return;}
         System.out.println(new Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()).getNombre());
-        //pbanew Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()).informarCliente(false, Bank.getImage());
         this.clientes.queue(new Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()));
         this.total.add(new Cliente (this.CNombre.getText(),this.CCorreo.getText(),this.TCliente.getSelectedIndex()));
         this.total.saveList();
@@ -278,6 +280,8 @@ public class Program extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
+        
+        this.dia.guardar();
         new BReportes().setVisible(true);
     }//GEN-LAST:event_ReportesActionPerformed
 

@@ -171,6 +171,7 @@ public class FBanco extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         File existe=new File("Banco.obj");
+        new Dia();
         System.out.println("banco"+!existe.exists());
         if(!existe.exists()){
         java.awt.EventQueue.invokeLater(new Runnable() {
