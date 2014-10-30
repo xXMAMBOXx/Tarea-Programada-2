@@ -11,6 +11,7 @@ import java.util.Date;
 public class Dia implements  Serializable {
     private class hora implements  Serializable{
         private int atendidos=0;
+        private int regulares,corporativo,embarazada,Amayor,Especial;
         Date now = new Date(System.currentTimeMillis());
         private String hora;
         hora(){
@@ -25,12 +26,25 @@ public class Dia implements  Serializable {
             SimpleDateFormat hour = new SimpleDateFormat("HH");
             return hour.format(ahora);
         }
-        public void addCliente(){
+        public void addCliente(int regulares,int corporativo,int embarazada,int Amayor,int Especial){
             this.atendidos++;
         }
         public int getAtendidos(){
             return this.atendidos;
         }
+        public int getRegularesxHora(){
+            return this.regulares;}
+        public int getCorporativosxHora(){
+            return this.corporativo;}
+        public int getEmbrazadasxHora(){
+            return this.embarazada;}
+        public int getAmayorxHora(){
+            return this.Amayor;}
+        public int getEspecialxHora(){
+            return this.Especial;}
+        public int getTotalxHora(){
+            return this.Amayor+this.Especial+this.corporativo+this.embarazada+this.regulares;
+    }
     }
    
     private String fecha;
@@ -70,7 +84,7 @@ public class Dia implements  Serializable {
            System.out.print(this.horas[0]);
            this.horaActual=new hora(); 
         }else{ this.horas[Integer.parseInt(this.horaActual.getHora())]=this.horaActual;}
-        this.horaActual.addCliente();
+        this.horaActual.addCliente(this.regulares,this.corporativo,this.embarazada,this.Amayor,this.Especial);
         this.Latendidos.add(a);
         System.out.println(Latendidos.getLast().getNombre()+" atendidos "+this.horaActual.getAtendidos()+" en hora "+this.horaActual.getHora());
     }
@@ -133,7 +147,7 @@ public class Dia implements  Serializable {
         }catch(Exception e){System.out.println("no leyo días");}
         return null;
     }
-    public int horavshora(int d,int b){
+    public int horavshoraT(int d,int b){
         int nclientes=0;
         for(int a=0;a!=b;a++){
             System.out.println(this.horas[a]);
@@ -144,6 +158,57 @@ public class Dia implements  Serializable {
         }
         return nclientes;
     }
+    public int horavshoraES(int d,int b){
+        int especial=0;
+        for(int a=0;a!=b;a++){
+            System.out.println(this.horas[a]);
+            if(this.horas[a]!=null){
+            System.out.println(this.horas[a].getHora());
+            especial+=this.horas[a].getEspecialxHora();}
+             System.out.println(especial);
+        }
+        return especial;
+    }
+    public int horavshoraAM(int d,int b){
+        int AM=0;
+        for(int a=0;a!=b;a++){
+            System.out.println(this.horas[a]);
+            if(this.horas[a]!=null){
+            System.out.println(this.horas[a].getHora());
+            AM+=this.horas[a].getAmayorxHora();}
+             System.out.println(AM);
+        }
+        return AM;}
+     public int horavshoraEM(int d,int b){
+        int embara=0;
+        for(int a=0;a!=b;a++){
+            System.out.println(this.horas[a]);
+            if(this.horas[a]!=null){
+            System.out.println(this.horas[a].getHora());
+            embara+=this.horas[a].getAmayorxHora();}
+             System.out.println(embara);
+        }
+        return embara;}
+     public int horavshoraCO(int d,int b){
+        int corpo=0;
+        for(int a=0;a!=b;a++){
+            System.out.println(this.horas[a]);
+            if(this.horas[a]!=null){
+            System.out.println(this.horas[a].getHora());
+            corpo+=this.horas[a].getAmayorxHora();}
+             System.out.println(corpo);
+        }
+        return corpo;}
+     public int horavshoraRE(int d,int b){
+        int reg=0;
+        for(int a=0;a!=b;a++){
+            System.out.println(this.horas[a]);
+            if(this.horas[a]!=null){
+            System.out.println(this.horas[a].getHora());
+            reg+=this.horas[a].getAmayorxHora();}
+             System.out.println(reg);
+        }
+        return reg;}
     public String[] listaDias(){
          Dia[] Dguardados=this.leer();
          String[] fechas=new String[Dguardados.length];
@@ -151,6 +216,9 @@ public class Dia implements  Serializable {
          fechas[i]=Dguardados[i].fecha;
          }
          return fechas;
+    }
+    public hora[] getHoras(){
+        return this.horas;
     }
     public int nDias(){
         int contador=0;

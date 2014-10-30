@@ -276,7 +276,6 @@ public class Program extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        this.Bank.setCactual((Banco.Cajero)Lcajeros.get(LCajeros.getSelectedIndex()));
        this.Bank.getCactual().setStatus(false); LCajeros.setListData(this.Bank.getNombres());
-       System.out.println(this.dia.horavshora(0,7));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReportesActionPerformed
